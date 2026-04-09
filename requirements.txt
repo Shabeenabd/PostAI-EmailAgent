@@ -1,0 +1,5 @@
+langchain
+langchain-classic
+langchain-ollama
+rich
+python-dotenv
