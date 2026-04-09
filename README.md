@@ -1,6 +1,6 @@
-# AI Email Agent ✉
+# PostAI - AI Email Agent ✉️
 
-An autonomous AI email assistant powered by **Claude** and **LangChain**. It drafts, refines, sends, and schedules emails through natural language conversation.
+An autonomous AI email assistant powered by **Ollama** and **LangChain**. It drafts, refines, sends, and schedules emails through natural language conversation.
 
 ## Features
 
@@ -12,13 +12,15 @@ An autonomous AI email assistant powered by **Claude** and **LangChain**. It dra
 - **Rich terminal UI** — beautiful CLI with markdown rendering
 - **Conversation memory** — maintains context across your session
 
-## Project Structure
+## 📂 Project Structure
 
 ```
-ai_email_agent/
+PostAI-EmailAgent/
+│
 ├── main.py                  # CLI entrypoint
 ├── agents/
-│   └── email_agent.py       # LangChain agent + Claude LLM
+│   ├── prompt_template.py   # Agent system prompt
+│   └── email_agent.py       # LangChain agent + Ollama LLM
 ├── tools/
 │   ├── email_tools.py       # LangChain @tool definitions
 │   └── draft_store.py       # JSON-backed draft persistence
@@ -34,8 +36,8 @@ ai_email_agent/
 ### 1. Clone & install
 
 ```bash
-git clone <your-repo>
-cd ai_email_agent
+git clone https://github.com/Shabeenabd/PostAI-EmailAgent.git
+cd PostAI-EmailAgent
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -44,9 +46,15 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# Edit .env with your keys
 ```
-
+**Edit `.env`:**
+```bash
+OLLAMA_MODEL=llama3
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SENDER_EMAIL=your_email@gmail.com
+SENDER_PASSWORD=your_app_password
+```
 **Gmail setup:**
 1. Enable 2-Factor Authentication on your Google account
 2. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
@@ -84,11 +92,12 @@ Agent: Email sent successfully to sarah@company.com at 2:34 PM.
 
 | Tool | Description |
 |------|-------------|
-| `draft_email` | Create a new email draft with to/subject/body/tone |
-| `refine_email` | Update an existing draft based on feedback |
-| `send_email` | Send a draft via SMTP |
-| `schedule_email` | Schedule a draft for future delivery |
-| `list_drafts` | List all drafts (filter by status) |
+| ✍️ `draft_email` | Create a new email draft with to/subject/body/tone |
+| 🔧 `refine_email` | Update an existing draft based on feedback |
+| 📤 `send_email` | Send a draft via SMTP |
+| ⏰ `schedule_email` | Schedule a draft for future delivery |
+| 📋 `list_drafts` | List all drafts (filter by status) |
+| 🗑 `delete_email` | Delete an emal from drafts |
 
 ## Extending
 
@@ -112,18 +121,18 @@ r.set(f"draft:{draft_id}", json.dumps(draft))
 
 **Add a web UI:** wrap `build_agent()` with FastAPI + WebSockets for a browser-based interface.
 
-## Environment Variables
+## ⚙️ Environment Variables
 
 | Variable | Description |
 |----------|-------------|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key |
+| `OLLAMA_MODEL` | Your local ollama model |
 | `SMTP_HOST` | SMTP server (e.g. `smtp.gmail.com`) |
 | `SMTP_PORT` | Port — 587 (TLS) or 465 (SSL) |
 | `SENDER_EMAIL` | Your email address |
 | `SENDER_PASSWORD` | App password |
 
-## Requirements
+## 📦 Requirements
 
 - Python 3.10+
-- Anthropic API key
+- Ollama
 - SMTP credentials (Gmail App Password recommended)
